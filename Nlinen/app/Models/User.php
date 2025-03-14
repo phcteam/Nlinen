@@ -19,7 +19,7 @@ class User extends Authenticatable
         'userName',
         'password',
         'IsCancel',
-        'PmID',
+        'permission_id',
         'Count',
         'Modify_Date',
         'TimeOut',
@@ -48,5 +48,10 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['Password'] = md5($value);
+    }
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class, 'permission_id', 'id');
     }
 }
