@@ -17,4 +17,4 @@ Route::middleware([IsAdminMiddleware::class . ':1,6'])->group(function () { //Pm
 });
 
 
-Route::get('/test', [TestController::class, 'index'])->name('test'); //ทุกคนเข้าได้ แต่ต้อง login 
+Route::get('/test', [TestController::class, 'index'])->name('test'); 
