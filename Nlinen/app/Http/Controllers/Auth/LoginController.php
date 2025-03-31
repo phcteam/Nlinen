@@ -50,22 +50,22 @@ class LoginController extends Controller
             'username' => 'required|string',
             'password' => 'required|string'
         ]);
-
-        if (Auth::attempt(['userName' => $request->username, 'password' => $request->password])) {
-
-            $user = Auth::user();
-
-
-         
-            if ($user && $user->PmID == 1) {
-          
-                return redirect()->route('admin.home');
+    
+        $remember = $request->has('remember'); // ตรวจสอบ Remember Me
+    
+        if (Auth::attempt(['userName' => $request->username, 'password' => $request->password], $remember)) {
+            // สร้าง Cookie จำ Username ถ้ามี Remember Me
+            if ($remember) {
+                cookie()->queue('remembered_username', $request->username, 60 * 24 * 30); // 30 วัน
             } else {
-                return redirect()->route('home');
+                cookie()->queue(cookie()->forget('remembered_username')); // ลบ Cookie ถ้าไม่ Remember Me
             }
+    
+            $user = Auth::user();
+            return $user->PmID == 1 ? redirect()->route('admin.home') : redirect()->route('home');
         }
-
-
+    
         return redirect()->back()->with('error', 'ล็อกอินไม่สำเร็จ');
     }
+    
 }

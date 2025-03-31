@@ -9,16 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IsAdminMiddleware
 {
-
     public function handle(Request $request, Closure $next, ...$roles)
     {
         $user = Auth::user();
 
-
-        if ($user && $user->PmID == 1) {
-            return $next($request);
+        if (!$user) {
+            return redirect('/home')->with('error', 'กรุณาเข้าสู่ระบบ');
         }
-
 
         if ($user && in_array($user->PmID, $roles)) {
             return $next($request);
