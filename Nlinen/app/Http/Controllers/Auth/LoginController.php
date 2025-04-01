@@ -62,7 +62,7 @@ class LoginController extends Controller
             }
     
             $user = Auth::user();
-            return $user->PmID == 1 ? redirect()->route('admin.home') : redirect()->route('home');
+            return $user->PmID == 1 ? redirect()->route('admin.home') : redirect()->to('/');
         }
     
         return redirect()->back()->with('error', 'ล็อกอินไม่สำเร็จ');
