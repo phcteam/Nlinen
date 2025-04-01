@@ -1,8 +1,5 @@
 <template>
-
-    <div class="container">
-        About Page
-    </div>
+    About Page
 </template>
 
 <script>
