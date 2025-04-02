@@ -42,17 +42,15 @@ class LoginController extends Controller
         $this->middleware('auth')->only('logout');
     }
 
-
-
     public function login(Request $request)
     {
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string'
         ]);
-    
+
         $remember = $request->has('remember'); // ตรวจสอบ Remember Me
-    
+
         if (Auth::attempt(['userName' => $request->username, 'password' => $request->password], $remember)) {
             // สร้าง Cookie จำ Username ถ้ามี Remember Me
             if ($remember) {
@@ -60,12 +58,19 @@ class LoginController extends Controller
             } else {
                 cookie()->queue(cookie()->forget('remembered_username')); // ลบ Cookie ถ้าไม่ Remember Me
             }
-    
+
             $user = Auth::user();
             return $user->PmID == 1 ? redirect()->route('admin.home') : redirect()->to('/');
         }
-    
+
         return redirect()->back()->with('error', 'ล็อกอินไม่สำเร็จ');
     }
-    
+    public function showLoginForm()
+    {
+        if (Auth::check()) {
+            return redirect('/'); 
+        }
+
+        return view('auth.login');
+    }
 }

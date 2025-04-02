@@ -10,7 +10,7 @@
      <meta name="author" content="">
 
      <title>SB Admin 2 - Login</title>
- 
+
      <!-- fontawesome-->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -36,6 +36,11 @@
 
                  <div class="card o-hidden border-0 shadow-lg my-5">
                      <div class="card-body p-0">
+                         @if (session('error'))
+                             <div class="alert alert-danger m-2">
+                                 {{ session('error') }}
+                             </div>
+                         @endif
                          <!-- Nested Row within Card Body -->
                          <div class="row">
                              <div class="col-lg-6 d-none d-lg-block bg-login-image">
@@ -48,6 +53,7 @@
                                      <div class="text-center">
                                          <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                      </div>
+
 
                                      <form method="POST" action="{{ route('login') }}" class="user">
                                          @csrf

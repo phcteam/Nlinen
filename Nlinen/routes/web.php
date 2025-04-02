@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\IsAdminMiddleware;
@@ -10,6 +11,9 @@ use Illuminate\Http\Request;
 
 
 Auth::routes();
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+
 
 // Route::get('/', [HomeController::class, 'index'])->name('home'); 
 Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
@@ -26,6 +30,6 @@ Route::middleware('auth:sanctum')->get('/api/user', function (Request $request) 
 
 Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*'); 
 
-// Route::get('/tem', function () {
+// Route::get('/test', function () {
 //     return view('test');
 // });

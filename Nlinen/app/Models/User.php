@@ -45,10 +45,10 @@ class User extends Authenticatable
         'Password',
     ];
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['Password'] = md5($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['Password'] = md5($value);
+    // }
 
     public function permission()
     {
