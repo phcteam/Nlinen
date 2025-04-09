@@ -1,35 +1,27 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HomeController;
-use App\Http\Middleware\IsAdminMiddleware;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/', [HomeController::class, 'index'])
+    ->middleware(['auth', 'verified']);
 
 
+Route::view('profile', 'auth.profile.index')
+    ->middleware(['auth', 'verified'])
+    ->name('profile');
 
-Auth::routes();
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-
-
-// Route::get('/', [HomeController::class, 'index'])->name('home'); 
-Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
-
-// Route::middleware([IsAdminMiddleware::class . ':1, 6'])->group(function () { //PmID 1 และ 6 เข้าได้เท่านั้น
-//     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-// });
-
-
-// API Routes (ดึงข้อมูล user)
-Route::middleware('auth:sanctum')->get('/api/user', function (Request $request) {
-    return response()->json($request->user());
+Route::get('/api/user', function (Request $request) {
+    $user = Auth::user();
+    return response()->json($user);
 });
 
-Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*'); 
 
-// Route::get('/test', function () {
-//     return view('test');
-// });
+Route::get('/{any}', function () {
+    return view('vue');
+})
+    ->middleware(['auth', 'verified'])
+    ->where('any', '.*');

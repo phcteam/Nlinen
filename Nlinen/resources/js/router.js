@@ -1,13 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from './components/Home.vue';
-import AboutHome from './components/About.vue';
-import AdminHome from './components/AdminHome.vue';
-import NotFound from './components/NotFound.vue';
 import { useUserStore } from './store';
+import Home from './pages/Home.vue';
+import AboutHome from './pages/About.vue';
+import AdminHome from './pages/AdminHome.vue';
+import NotFound from './pages/NotFound.vue';
+import Profile from './pages/Profile.vue';
 
 const routes = [
     { path: '/', component: Home },
     { path: '/about', component: AboutHome },
+    { path: '/home', component: Home },
+    { path: '/profile', component: Profile },
 
     {
         path: '/admin/home',

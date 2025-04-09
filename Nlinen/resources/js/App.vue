@@ -132,6 +132,7 @@
 
 
     </ul>
+
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
@@ -296,14 +297,21 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ username }}</span>
-                <!-- <img class="img-profile rounded-circle" src="img/undraw_profile.svg"> -->
+                <img class="img-profile rounded-circle" :src="profileImage" alt="Profile Image">
+                
+                <!-- <img class="img-profile rounded-circle" src="/img/undraw_profile.svg" alt="Profile Image"> -->
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
+
+                <!-- <router-link class="dropdown-item" to="/profile" active-class="active"> <i
+                    class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile</router-link> -->
+                <a class="dropdown-item" href="/profile">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  profile
                 </a>
+
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -313,11 +321,10 @@
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/logout" @click="logout">
+                <a class="dropdown-item" href="/logout" @click.prevent="logout">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
-
               </div>
             </li>
 
@@ -330,11 +337,12 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-          </div>
+          </div> -->
+
           <router-view></router-view>
 
         </div>
@@ -346,77 +354,33 @@
   </div>
 </template>
 
-<!-- <script>
-import { useUserStore } from "./store";
-import { computed, onMounted } from "vue";
-
-export default {
-  setup() {
-    const userStore = useUserStore();
-
-    const isAdmin = computed(() => {
-      return userStore.user && [1, 6].includes(userStore.user.permission_id);
-    });
-
-    // โหลดข้อมูล user ตอนเริ่มต้น
-    onMounted(async () => {
-      if (!userStore.user) {
-        await userStore.fetchUser();
-      }
-
-      // jQuery script ที่ต้องการ
-      !function (l) {
-        "use strict";
-        l("#sidebarToggle, #sidebarToggleTop").on("click", function (e) {
-          l("body").toggleClass("sidebar-toggled"), l(".sidebar").toggleClass("toggled"), l(".sidebar")
-            .hasClass("toggled") && l(".sidebar .collapse").collapse("hide");
-        }), l(window).resize(function () {
-          l(window).width() < 768 && l(".sidebar .collapse").collapse("hide");
-          l(window).width() < 480 && !l(".sidebar").hasClass("toggled") && (l("body").addClass("sidebar-toggled"), l(".sidebar")
-            .addClass("toggled"), l(".sidebar .collapse").collapse("hide"));
-        }), l("body.fixed-nav .sidebar").on("mousewheel DOMMouseScroll wheel", function (e) {
-          var o;
-          768 < l(window).width() && (o = (o = e.originalEvent).wheelDelta || -o.detail, this.scrollTop +=
-            30 * (o < 0 ? 1 : -1), e.preventDefault());
-        }), l(document).on("scroll", function () {
-          100 < l(this).scrollTop() ? l(".scroll-to-top").fadeIn() : l(".scroll-to-top").fadeOut();
-        }), l(document).on("click", "a.scroll-to-top", function (e) {
-          var o = l(this);
-          l("html, body").stop().animate({
-            scrollTop: l(o.attr("href")).offset().top
-          }, 1e3, "easeInOutExpo"), e.preventDefault();
-        });
-      }(jQuery);
-    });
-
-    return { isAdmin };
-  }
-};
-</script> -->
 
 
 <script>
 import { useUserStore } from "./store";
 import { computed, onMounted } from "vue";
 import axios from "axios";
-
+import profileImage from '../../public/img/undraw_profile.svg';   
 
 export default {
   setup() {
     const userStore = useUserStore();
 
+
+
     const isAdmin = computed(() => {
       return userStore.user && [1, 6].includes(userStore.user.permission_id);
     });
 
-    const username = computed(() => userStore.user.UserName || "Guest");
+    const username = computed(() => userStore.user.name || "Guest");
+
+
     const logout = async () => {
       try {
-        await axios.post("/logout");
-        userStore.user = null;
-        router.push("/login");
+        await axios.post('/logout');
+        window.location.href = '/login';
       } catch (error) {
-        console.error("Logout failed:", error);
+        console.error("Error during logout:", error);
       }
     };
 
@@ -452,7 +416,9 @@ export default {
       }(jQuery);
     });
 
-    return { isAdmin, username, logout };
+ 
+    return { isAdmin, username, logout,  profileImage };
+
   }
 };
 </script>

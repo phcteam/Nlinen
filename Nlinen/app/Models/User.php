@@ -2,56 +2,44 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
 
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
-    protected $table = 'users';
     protected $fillable = [
-        'HptCode',
-        'FacCode',
-        'FName',
-        'userName',
-        'password',
-        'IsCancel',
-        'permission_id',
-        'Count',
-        'Modify_Date',
-        'TimeOut',
-        'lang',
+        'name',
         'email',
-        'IsActive',
-        'chk_logoff',
-        'pic',
-        'Active_mail',
-        'DepCode',
-        'DocDate',
-        'Modify_Code',
-        'remask',
-        'EngPerfix',
-        'EngName',
-        'EngLName',
-        'ThPerfix',
-        'ThName',
-        'ThLName',
-        'Lastmouse_Date',
+        'password',
+        'permission_id'
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
     protected $hidden = [
-        'Password',
+        'password',
+        'remember_token',
     ];
 
-    // public function setPasswordAttribute($value)
-    // {
-    //     $this->attributes['Password'] = md5($value);
-    // }
-
-    public function permission()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return $this->belongsTo(Permission::class, 'permission_id', 'id');
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }

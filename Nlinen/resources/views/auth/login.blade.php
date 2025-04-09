@@ -1,124 +1,108 @@
- <!DOCTYPE html>
- <html lang="en">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
- <head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-     <meta charset="utf-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <meta name="description" content="">
-     <meta name="author" content="">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-     <title>SB Admin 2 - Login</title>
+    <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
 
-     <!-- fontawesome-->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-     <link
-         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-     <!-- Custom styles for this template-->
-     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
- </head>
+</head>
 
- <body class="bg-gradient-primary">
+<body>
+    <main class="py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">{{ __('Login') }}</div>
 
-     <div class="container">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
 
-         <!-- Outer Row -->
-         <div class="row justify-content-center">
+                                <div class="row mb-3">
+                                    <label for="email"
+                                        class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
-             <div class="col-xl-10 col-lg-12 col-md-9">
+                                    <div class="col-md-6">
+                                        <input id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                 <div class="card o-hidden border-0 shadow-lg my-5">
-                     <div class="card-body p-0">
-                         @if (session('error'))
-                             <div class="alert alert-danger m-2">
-                                 {{ session('error') }}
-                             </div>
-                         @endif
-                         <!-- Nested Row within Card Body -->
-                         <div class="row">
-                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                                 <img src="img/160-3200x2119.jpg" alt="..." height="500px" width="460px">
+                                <div class="row mb-3">
+                                    <label for="password"
+                                        class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
-                             </div>
-                             <div class="col-lg-6">
-                                 <div class="p-5">
-                                     <div class="text-center">
-                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                     </div>
+                                    <div class="col-md-6">
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="current-password">
 
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                                     <form method="POST" action="{{ route('login') }}" class="user">
-                                         @csrf
+                                <div class="row mb-3">
+                                    <div class="col-md-6 offset-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="remember"
+                                                id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                         <div class="form-group">
-                                             <input id="exampleInputEmail" type="text"
-                                                 class="form-control form-control-user @error('username') is-invalid @enderror"
-                                                 name="username"
-                                                 value="{{ old('username', request()->cookie('remembered_username')) }}"
-                                                 required autocomplete="username" autofocus>
+                                            <label class="form-check-label" for="remember">
+                                                {{ __('Remember Me') }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                             @error('username')
-                                                 <span class="invalid-feedback" role="alert">
-                                                     <strong>{{ $message }}</strong>
-                                                 </span>
-                                             @enderror
-                                         </div>
+                                <div class="row mb-0">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Login') }}
+                                        </button>
 
-                                         <div class="form-group">
-                                             <input id="password" type="password"
-                                                 class="form-control form-control-user @error('password') is-invalid @enderror"
-                                                 name="password" required autocomplete="current-password">
+                                        @if (Route::has('password.request'))
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
 
-                                             @error('password')
-                                                 <span class="invalid-feedback" role="alert">
-                                                     <strong>{{ $message }}</strong>
-                                                 </span>
-                                             @enderror
-                                         </div>
-
-                                         <div class="form-group">
-                                             <div class="custom-control custom-checkbox small">
-                                                 <input type="checkbox" class="custom-control-input" id="customCheck"
-                                                     name="remember"
-                                                     {{ old('remember') || request()->cookie('remembered_username') ? 'checked' : '' }}>
-
-                                                 <label class="custom-control-label" for="customCheck">Remember
-                                                     Me</label>
-                                             </div>
-                                         </div>
-
-                                         <button class="btn btn-primary btn-user btn-block" type="submit">
-                                             Login
-                                         </button>
-                                     </form>
-
-                                     <hr>
-                                     <div class="text-center">
-                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                     </div>
-                                     <div class="text-center">
-                                         <a class="small" href="register.html">Create an Account!</a>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-
-             </div>
-
-         </div>
-
-     </div>
-
- </body>
-
- </html>
+</html>
