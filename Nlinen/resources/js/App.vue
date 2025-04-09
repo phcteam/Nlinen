@@ -40,8 +40,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Custom Components:</h6> -->
             <router-link class="collapse-item" to="/" active-class="active">หน้าหลัก</router-link>
-            <router-link class="collapse-item" to="/general" active-class="active">บันทึกผ้าใหม่ส่งซัก</router-link>
-            <router-link class="collapse-item" to="/general1" active-class="active">บันทึกรับผ้าสกปก</router-link>
+            <router-link class="collapse-item" to="/general/laundry-create" active-class="active">บันทึกผ้าใหม่ส่งซัก</router-link>
+            <router-link class="collapse-item" to="/about" active-class="active">บันทึกรับผ้าสกปก</router-link>
             <router-link class="collapse-item" to="/general2" active-class="active">บันทึกรับผ้าสะอาด</router-link>
             <router-link class="collapse-item" to="/general3" active-class="active">บันทึกรับเข้าสต๊อก</router-link>
             <router-link class="collapse-item" to="/general4" active-class="active">บันทึกส่งเครมโรงซัก
@@ -298,7 +298,7 @@
                 aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ username }}</span>
                 <img class="img-profile rounded-circle" :src="profileImage" alt="Profile Image">
-                
+
                 <!-- <img class="img-profile rounded-circle" src="/img/undraw_profile.svg" alt="Profile Image"> -->
               </a>
               <!-- Dropdown - User Information -->
@@ -308,7 +308,8 @@
                     class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile</router-link> -->
                 <a class="dropdown-item" href="/profile">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+
                   profile
                 </a>
 
@@ -360,7 +361,7 @@
 import { useUserStore } from "./store";
 import { computed, onMounted } from "vue";
 import axios from "axios";
-import profileImage from '../../public/img/undraw_profile.svg';   
+import profileImage from '../../public/img/undraw_profile.svg';
 
 export default {
   setup() {
@@ -416,8 +417,8 @@ export default {
       }(jQuery);
     });
 
- 
-    return { isAdmin, username, logout,  profileImage };
+
+    return { isAdmin, username, logout, profileImage };
 
   }
 };

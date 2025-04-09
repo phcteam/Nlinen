@@ -5,12 +5,13 @@ import AboutHome from './pages/About.vue';
 import AdminHome from './pages/AdminHome.vue';
 import NotFound from './pages/NotFound.vue';
 import Profile from './pages/Profile.vue';
+import LaundryCreate from './pages/LaundryCreate.vue';
 
 const routes = [
-    { path: '/', component: Home },
+    { path: '/', component: Home, meta: { title: 'หน้าแรก' } },
     { path: '/about', component: AboutHome },
     { path: '/home', component: Home },
-    { path: '/profile', component: Profile },
+    { path: '/general/laundry-create', component: LaundryCreate, meta: { title: 'บันทึกผ้าใหม่ส่งซัก' }  },
 
     {
         path: '/admin/home',
@@ -32,9 +33,13 @@ router.beforeEach(async (to, from, next) => {
         await userStore.fetchUser();
     }
 
+
     if (to.meta.requiresAuth && (!userStore.user || !to.meta.allowedRoles.includes(userStore.user.permission_id))) {
         return next('/'); // Redirect ถ้าไม่มีสิทธิ์
     }
+    let pageTitle = to.meta.title || 'หน้าเว็บของเรา';
+
+    document.title = `${pageTitle}`;
 
     next();
 });

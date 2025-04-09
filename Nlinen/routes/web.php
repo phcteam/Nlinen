@@ -19,6 +19,11 @@ Route::get('/api/user', function (Request $request) {
     return response()->json($user);
 });
 
+Route::get('/api/product', function (Request $request) {
+    $user = Auth::user();
+    return response()->json($user);
+});
+
 
 Route::get('/{any}', function () {
     return view('vue');

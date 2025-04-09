@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
+    {{-- <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -21,6 +21,9 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+
+    </style>
 
 </head>
 
@@ -29,13 +32,13 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <router-link class="sidebar-brand d-flex align-items-center justify-content-center" to="/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" to="/">
 
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-            </router-link>
+            </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -65,37 +68,27 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        {{-- <router-link class="collapse-item" to="/" active-class="active">หน้าหลัก</router-link> --}}
-                        <router-link class="collapse-item" to="/general"
-                            active-class="active">บันทึกผ้าใหม่ส่งซัก</router-link>
-                        <router-link class="collapse-item" to="/general1"
-                            active-class="active">บันทึกรับผ้าสกปก</router-link>
-                        <router-link class="collapse-item" to="/general2"
-                            active-class="active">บันทึกรับผ้าสะอาด</router-link>
-                        <router-link class="collapse-item" to="/general3"
-                            active-class="active">บันทึกรับเข้าสต๊อก</router-link>
-                        <router-link class="collapse-item" to="/general4" active-class="active">บันทึกส่งเครมโรงซัก
-                            (โรงซัก)</router-link>
-                        <router-link class="collapse-item" to="/general5" active-class="active">บันทึกผ้าชำรุด
-                            (โรงพยาบาล)</router-link>
-                        <router-link class="collapse-item" to="/general6"
-                            active-class="active">บันทึกส่งผ้าแก้ไข</router-link>
-                        <router-link class="collapse-item" to="/general7"
-                            active-class="active">บันทึกส่งผ้ารับกลับ</router-link>
-                        <router-link class="collapse-item" to="/general8" active-class="active">Shelf
-                            Count</router-link>
-                        <router-link class="collapse-item" to="/general9"
-                            active-class="active">บันทึกรับการคืนผ้า(โรงพยาบาล)</router-link>
-                        <router-link class="collapse-item" to="/general10"
-                            active-class="active">สติ๊กเกอร์</router-link>
-                        <router-link class="collapse-item" to="/general11"
-                            active-class="active">คิดเป็นเปอร์เซ็นต์</router-link>
-                        <router-link class="collapse-item" to="/general12"
-                            active-class="active">แบบฟอร์มการนับสต๊อก</router-link>
-                        <router-link class="collapse-item" to="/general13" active-class="active">บันทึกเอกสารผ้าสะอาด
-                            โรงซัก</router-link>
-                        <router-link class="collapse-item" to="/general14" active-class="active">บันทึกเอกสารผ้าสกปรก
-                            โรงซัก</router-link>
+                        <a href="/" class="collapse-item">หน้าหลัก</a>
+                        <a class="collapse-item" to="/general" active-class="active">บันทึกผ้าใหม่ส่งซัก</a>
+                        <a class="collapse-item" to="/general1" active-class="active">บันทึกรับผ้าสกปก</a>
+                        <a class="collapse-item" to="/general2" active-class="active">บันทึกรับผ้าสะอาด</a>
+                        <a class="collapse-item" to="/general3" active-class="active">บันทึกรับเข้าสต๊อก</a>
+                        <a class="collapse-item" to="/general4" active-class="active">บันทึกส่งเครมโรงซัก
+                            (โรงซัก)</a>
+                        <a class="collapse-item" to="/general5" active-class="active">บันทึกผ้าชำรุด
+                            (โรงพยาบาล)</a>
+                        <a class="collapse-item" to="/general6" active-class="active">บันทึกส่งผ้าแก้ไข</a>
+                        <a class="collapse-item" to="/general7" active-class="active">บันทึกส่งผ้ารับกลับ</a>
+                        <a class="collapse-item" to="/general8" active-class="active">Shelf
+                            Count</a>
+                        <a class="collapse-item" to="/general9" active-class="active">บันทึกรับการคืนผ้า(โรงพยาบาล)</a>
+                        <a class="collapse-item" to="/general10" active-class="active">สติ๊กเกอร์</a>
+                        <a class="collapse-item" to="/general11" active-class="active">คิดเป็นเปอร์เซ็นต์</a>
+                        <a class="collapse-item" to="/general12" active-class="active">แบบฟอร์มการนับสต๊อก</a>
+                        <a class="collapse-item" to="/general13" active-class="active">บันทึกเอกสารผ้าสะอาด
+                            โรงซัก</a>
+                        <a class="collapse-item" to="/general14" active-class="active">บันทึกเอกสารผ้าสกปรก
+                            โรงซัก</a>
 
                     </div>
                 </div>
@@ -112,16 +105,13 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-                        <router-link class="collapse-item" to="/Status1" active-class="active">Par
-                            Department</router-link>
-                        <router-link class="collapse-item" to="/Status2"
-                            active-class="active">เรียกเก็บผ้าสกปก</router-link>
-                        <router-link class="collapse-item" to="/Status3"
-                            active-class="active">ย้ายแผนก</router-link>
-                        <router-link class="collapse-item" to="/Status4" active-class="active">การร้องขออื่น
-                            ๆ</router-link>
-                        <router-link class="collapse-item" to="/Status5"
-                            active-class="active">Chartroom</router-link>
+                        <a class="collapse-item" to="/Status1" active-class="active">Par
+                            Department</a>
+                        <a class="collapse-item" to="/Status2" active-class="active">เรียกเก็บผ้าสกปก</a>
+                        <a class="collapse-item" to="/Status3" active-class="active">ย้ายแผนก</a>
+                        <a class="collapse-item" to="/Status4" active-class="active">การร้องขออื่น
+                            ๆ</a>
+                        <a class="collapse-item" to="/Status5" active-class="active">Chartroom</a>
 
                     </div>
                 </div>
@@ -145,10 +135,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <router-link class="collapse-item" to="/Contract1"
-                            active-class="active">คู่สัญญาโรงซัก</router-link>
-                        <router-link class="collapse-item" to="/Contract2"
-                            active-class="active">คู่สัญญาโรงพยาบาล</router-link>
+                        <a class="collapse-item" to="/Contract1" active-class="active">คู่สัญญาโรงซัก</a>
+                        <a class="collapse-item" to="/Contract2" active-class="active">คู่สัญญาโรงพยาบาล</a>
                     </div>
                 </div>
             </li>
@@ -351,9 +339,9 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
 
-                                <router-link class="dropdown-item" to="/profile" active-class="active"> <i
-                                        class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile</router-link>
+                                <a class="dropdown-item active" href="/profile" active-class="active">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile</a>
 
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -364,10 +352,6 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                {{-- <a class="dropdown-item" href="/logout" @click.prevent="logout">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a> --}}
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
@@ -388,13 +372,6 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-              </div> -->
                     @yield('content')
                 </div>
 
