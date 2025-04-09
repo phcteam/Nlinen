@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('auth.layout.app')
+
 @section('title', 'Login')
 
 @section('content')

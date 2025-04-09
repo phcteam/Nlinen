@@ -1,7 +1,30 @@
-@extends('auth.layout.app')
-@section('title', 'Register')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-@section('content')
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
     <main class="py-4">
         <div class="container">
             <div class="row justify-content-center">
@@ -50,8 +73,8 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6 offset-md-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                                {{ old('remember') ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="checkbox" name="remember"
+                                                id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                             <label class="form-check-label" for="remember">
                                                 {{ __('Remember Me') }}
@@ -80,4 +103,6 @@
             </div>
         </div>
     </main>
-@endsection
+</body>
+
+</html>
