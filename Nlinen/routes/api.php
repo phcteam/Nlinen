@@ -37,4 +37,5 @@ Route::get('/products', function (Request $request) {
             'weight' => 30.0
         ]
     ]);
-});
+    
+}) ;

@@ -1,19 +1,19 @@
 <template>
-    <!-- <div class="card"> -->
-    <!-- <div class="card-header"> -->
-    บันทึกผ้าใหม่ส่งซัก
-    <!-- </div> -->
+    บันทึกรับเข้าสต๊อก
     <div class="card-body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
-                    role="tab" aria-controls="home" aria-selected="true">ผ้าใหม่ส่งซัก</button>
+                    role="tab" aria-controls="home" aria-selected="true">รับผ้าส่งชำรุด</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button"
                     role="tab" aria-controls="search" aria-selected="false">ค้นหา</button>
             </li>
-
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="excel-tab" data-bs-toggle="tab" data-bs-target="#excel" type="button"
+                    role="tab" aria-controls="excel" aria-selected="false">Excel</button>
+            </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">

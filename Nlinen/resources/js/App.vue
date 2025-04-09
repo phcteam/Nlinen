@@ -6,9 +6,9 @@
       <router-link class="sidebar-brand d-flex align-items-center justify-content-center" to="/">
 
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fa-solid fa-kaaba"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Nlinen<sup>2</sup></div>
       </router-link>
 
       <!-- Divider -->
@@ -39,15 +39,34 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-            <router-link class="collapse-item" to="/" active-class="active">หน้าหลัก</router-link>
-            <router-link class="collapse-item" to="/general/laundry-create" active-class="active">บันทึกผ้าใหม่ส่งซัก</router-link>
-            <router-link class="collapse-item" to="/about" active-class="active">บันทึกรับผ้าสกปก</router-link>
-            <router-link class="collapse-item" to="/general2" active-class="active">บันทึกรับผ้าสะอาด</router-link>
-            <router-link class="collapse-item" to="/general3" active-class="active">บันทึกรับเข้าสต๊อก</router-link>
-            <router-link class="collapse-item" to="/general4" active-class="active">บันทึกส่งเครมโรงซัก
-              (โรงซัก)</router-link>
-            <router-link class="collapse-item" to="/general5" active-class="active">บันทึกผ้าชำรุด
-              (โรงพยาบาล)</router-link>
+            <router-link class="collapse-item" to="/" active-class="active">
+              หน้าหลัก
+            </router-link>
+
+            <router-link class="collapse-item" to="/general/laundry-create" active-class="active">
+              บันทึกผ้าใหม่ส่งซัก
+            </router-link>
+
+            <router-link class="collapse-item" to="/general/laundry-get-dirty" active-class="active">
+              บันทึกรับผ้าสกปก
+            </router-link>
+
+            <router-link class="collapse-item" to="/general/laundry-get-clean" active-class="active">
+              บันทึกรับผ้าสะอาด
+            </router-link>
+
+            <router-link class="collapse-item" to="/general/laundry-get-stock" active-class="active">
+              บันทึกรับเข้าสต๊อก
+            </router-link>
+
+            <router-link class="collapse-item" to="/general/laundry-claim-laundry" active-class="active">
+              บันทึกส่งเครมโรงซัก (โรงซัก)
+            </router-link>
+
+            <router-link class="collapse-item" to="/general/laundry-claim-hospital" active-class="active">
+              บันทึกผ้าชำรุด (โรงพยาบาล)
+            </router-link>
+
             <router-link class="collapse-item" to="/general6" active-class="active">บันทึกส่งผ้าแก้ไข</router-link>
             <router-link class="collapse-item" to="/general7" active-class="active">บันทึกส่งผ้ารับกลับ</router-link>
             <router-link class="collapse-item" to="/general8" active-class="active">Shelf Count</router-link>
