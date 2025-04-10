@@ -8,7 +8,6 @@ class GeneralController extends Controller
 {
     public function index($page = null, Request $request)
     {
-        // ถ้าไม่มี page ให้ Redirect ไป /general/home
         if (!$page) {
             return redirect()->route('general', 'home');
         }
@@ -16,8 +15,6 @@ class GeneralController extends Controller
         $generalMenus = config('myconfig.menus');
         $allowedPages = array_column($generalMenus, 'key');
 
-        // dd($allowedPages);
-        // $allowedPages = ['home', 'about', 'contact'];
 
         if (!in_array($page, $allowedPages)) {
             abort(404);

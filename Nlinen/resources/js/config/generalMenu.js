@@ -1,0 +1,98 @@
+export default [
+    {
+        name: "หน้าหลัก",
+        icon: "home",
+        route: "/",
+        permission: [1, 6],
+    },
+    {
+        name: "บันทึกผ้าใหม่ส่งซัก",
+        icon: "layers",
+        route: "/general/laundry-create",
+        permission: [1, 6],
+    },
+    {
+        name: "บันทึกรับผ้าสกปก",
+        icon: "settings",
+        route: "/general/laundry-get-dirty",
+        permission: [1],
+    },
+    {
+        name: "บันทึกรับผ้าสะอาด",
+        icon: "settings",
+        route: "/general/laundry-get-clean",
+        permission: [1],
+    },
+    {
+        name: "บันทึกรับเข้าสต๊อก",
+        icon: "settings",
+        route: "/general/laundry-get-stock",
+        permission: [1],
+    },
+    {
+        name: "บันทึกส่งเครมโรงซัก (โรงซัก)",
+        icon: "settings",
+        route: "/general/laundry-claim-factory",
+        permission: [1],
+    },
+    {
+        name: "บันทึกผ้าชำรุด (โรงพยาบาล)",
+        icon: "settings",
+        route: "/general/laundry-claim-hospital",
+        permission: [1],
+    },
+    {
+        name: "บันทึกส่งผ้าแก้ไข",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+    {
+        name: "บันทึกส่งผ้ารับกลับ",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+    {
+        name: "Shelf Count",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+    {
+        name: "บันทึกรับการคืนผ้า (โรงพยาบาล)",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+    {
+        name: "สติ๊กเกอร์",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+    {
+        name: "คิดเป็นเปอร์เซ็นต์",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+    {
+        name: "แบบฟอร์มการนับสต๊อก",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+    {
+        name: "บันทึกเอกสารผ้าสะอาดโรงซัก",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+    {
+        name: "บันทึกเอกสารผ้าสกปรกโรงซัก",
+        icon: "settings",
+        route: "/general",
+        permission: [1],
+    },
+];

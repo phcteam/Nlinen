@@ -4,11 +4,11 @@ import Home from './pages/Home.vue';
 import AboutHome from './pages/About.vue';
 import AdminHome from './pages/AdminHome.vue';
 import NotFound from './pages/NotFound.vue';
-import LaundryCreate from './pages/LaundryCreate.vue';
+import LaundryNewCreate from './pages/LaundryNewCreate.vue';
 import LaundryGetDirty from './pages/LaundryGetDirty.vue';
 import LaundryGetClean from './pages/LaundryGetClean.vue';
 import LaundryGetStock from './pages/LaundryGetStock.vue';
-import LaundryClaimLaundry from './pages/LaundryClaimLaundry.vue';
+import LaundryClaimFactory from './pages/LaundryClaimFactory.vue';
 import LaundryClaimHospital from './pages/LaundryClaimHospital.vue';
 
 const routes = [
@@ -17,11 +17,11 @@ const routes = [
     { path: '/home', component: Home },
 
     // ============= General =============
-    { path: '/general/laundry-create', component: LaundryCreate, meta: { title: 'บันทึกผ้าใหม่ส่งซัก' } },
+    { path: '/general/laundry-create', component: LaundryNewCreate, meta: { title: 'บันทึกผ้าใหม่ส่งซัก' } },
     { path: '/general/laundry-get-dirty', component: LaundryGetDirty, meta: { title: 'บันทึกรับผ้าสกปก' } },
     { path: '/general/laundry-get-clean', component: LaundryGetClean, meta: { title: 'บันทึกรับผ้าสะอาด' } },
     { path: '/general/laundry-get-stock', component: LaundryGetStock, meta: { title: 'บันทึกรับเข้าสต๊อก' } },
-    { path: '/general/laundry-claim-laundry', component: LaundryClaimLaundry, meta: { title: 'บันทึกส่งเครมโรงซัก (โรงซัก)' } },
+    { path: '/general/laundry-claim-factory', component: LaundryClaimFactory, meta: { title: 'บันทึกส่งเครมโรงซัก (โรงซัก)' } },
     { path: '/general/laundry-claim-hospital', component: LaundryClaimHospital, meta: { title: 'บันทึกส่งเครมโรงพยาบาล (โรงพยาบาล)' } },
 
     {

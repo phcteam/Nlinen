@@ -4,7 +4,6 @@
 
       <!-- Sidebar - Brand -->
       <router-link class="sidebar-brand d-flex align-items-center justify-content-center" to="/">
-
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fa-solid fa-kaaba"></i>
         </div>
@@ -13,23 +12,6 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <!-- <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li> -->
-
-      <!-- Divider -->
-      <!-- <hr class="sidebar-divider"> -->
-
-      <!-- Heading -->
-      <!-- <div class="sidebar-heading">
-        Interface
-      </div> -->
-
-      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
           aria-controls="collapseTwo">
@@ -39,52 +21,14 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-            <router-link class="collapse-item" to="/" active-class="active">
-              หน้าหลัก
-            </router-link>
-
-            <router-link class="collapse-item" to="/general/laundry-create" active-class="active">
-              บันทึกผ้าใหม่ส่งซัก
-            </router-link>
-
-            <router-link class="collapse-item" to="/general/laundry-get-dirty" active-class="active">
-              บันทึกรับผ้าสกปก
-            </router-link>
-
-            <router-link class="collapse-item" to="/general/laundry-get-clean" active-class="active">
-              บันทึกรับผ้าสะอาด
-            </router-link>
-
-            <router-link class="collapse-item" to="/general/laundry-get-stock" active-class="active">
-              บันทึกรับเข้าสต๊อก
-            </router-link>
-
-            <router-link class="collapse-item" to="/general/laundry-claim-laundry" active-class="active">
-              บันทึกส่งเครมโรงซัก (โรงซัก)
-            </router-link>
-
-            <router-link class="collapse-item" to="/general/laundry-claim-hospital" active-class="active">
-              บันทึกผ้าชำรุด (โรงพยาบาล)
-            </router-link>
-
-            <router-link class="collapse-item" to="/general6" active-class="active">บันทึกส่งผ้าแก้ไข</router-link>
-            <router-link class="collapse-item" to="/general7" active-class="active">บันทึกส่งผ้ารับกลับ</router-link>
-            <router-link class="collapse-item" to="/general8" active-class="active">Shelf Count</router-link>
-            <router-link class="collapse-item" to="/general9"
-              active-class="active">บันทึกรับการคืนผ้า(โรงพยาบาล)</router-link>
-            <router-link class="collapse-item" to="/general10" active-class="active">สติ๊กเกอร์</router-link>
-            <router-link class="collapse-item" to="/general11" active-class="active">คิดเป็นเปอร์เซ็นต์</router-link>
-            <router-link class="collapse-item" to="/general12" active-class="active">แบบฟอร์มการนับสต๊อก</router-link>
-            <router-link class="collapse-item" to="/general13" active-class="active">บันทึกเอกสารผ้าสะอาด
-              โรงซัก</router-link>
-            <router-link class="collapse-item" to="/general14" active-class="active">บันทึกเอกสารผ้าสกปรก
-              โรงซัก</router-link>
-
+            <div v-for="menu in filterGeneralMenus" :key="menu.name">
+              <router-link class="collapse-item" active-class="active" :to="menu.route">
+                {{ menu.name }}</router-link>
+            </div>
           </div>
         </div>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item" v-if="isAdmin">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
           aria-expanded="true" aria-controls="collapseUtilities">
@@ -93,13 +37,10 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-            <router-link class="collapse-item" to="/Status1" active-class="active">Par Department</router-link>
-            <router-link class="collapse-item" to="/Status2" active-class="active">เรียกเก็บผ้าสกปก</router-link>
-            <router-link class="collapse-item" to="/Status3" active-class="active">ย้ายแผนก</router-link>
-            <router-link class="collapse-item" to="/Status4" active-class="active">การร้องขออื่น ๆ</router-link>
-            <router-link class="collapse-item" to="/Status5" active-class="active">Chartroom</router-link>
-
+            <div v-for="menu in filtercreateStatusMenus" :key="menu.name">
+              <router-link class="collapse-item" active-class="active" :to="menu.route">
+                {{ menu.name }}</router-link>
+            </div>
           </div>
         </div>
       </li>
@@ -355,19 +296,8 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-          </div> -->
-
           <router-view></router-view>
-
         </div>
-
-
       </div>
     </div>
 
@@ -381,19 +311,23 @@ import { useUserStore } from "./store";
 import { computed, onMounted } from "vue";
 import axios from "axios";
 import profileImage from '../../public/img/undraw_profile.svg';
+import generalMenus from "./config/generalMenu";
+import createStatusMenus from "./config/createStatusMenu";
 
 export default {
   setup() {
     const userStore = useUserStore();
 
-
-
     const isAdmin = computed(() => {
       return userStore.user && [1, 6].includes(userStore.user.permission_id);
     });
 
-    const username = computed(() => userStore.user.name || "Guest");
-
+    const username = computed(() => {
+      if (userStore.user && userStore.user.name) {
+        return userStore.user.name;
+      }
+      return "Guest";
+    });
 
     const logout = async () => {
       try {
@@ -404,6 +338,15 @@ export default {
       }
     };
 
+    const filterGeneralMenus = computed(() => {
+      const permissionId = userStore.user.permission_id;
+      return generalMenus.filter(generalMenu => generalMenu.permission.includes(permissionId));
+    });
+
+    const filtercreateStatusMenus = computed(() => {
+      const permissionId = userStore.user.permission_id;
+      return createStatusMenus.filter(createStatusMenu => createStatusMenu.permission.includes(permissionId));
+    });
 
     // โหลดข้อมูล user ตอนเริ่มต้น
     onMounted(async () => {
@@ -437,7 +380,14 @@ export default {
     });
 
 
-    return { isAdmin, username, logout, profileImage };
+    return {
+      isAdmin,
+      username,
+      logout,
+      profileImage,
+      filterGeneralMenus,
+      filtercreateStatusMenus,
+    };
 
   }
 };

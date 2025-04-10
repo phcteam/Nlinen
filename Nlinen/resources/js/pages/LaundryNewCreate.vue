@@ -1,8 +1,5 @@
 <template>
-    <!-- <div class="card"> -->
-    <!-- <div class="card-header"> -->
     บันทึกผ้าใหม่ส่งซัก
-    <!-- </div> -->
     <div class="card-body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -21,52 +18,53 @@
                 <div class="row mt-4">
                     <div class="col-md-6 mb-3">
                         <label for="hospital" class="form-label">โรงพยาบาล</label>
-                        <input type="text" id="hospital" class="form-control" v-model="selectedProduct.hospital">
+                        <input type="text" id="hospital" class="form-control" v-model="selectedNewlinen.HptCode">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="laundry" class="form-label">โรงงานซัก</label>
-                        <input type="text" id="laundry" class="form-control" v-model="selectedProduct.laundry">
+                        <input type="text" id="laundry" class="form-control" v-model="selectedNewlinen.FacCode">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="docDate" class="form-label">วันที่เอกสาร</label>
-                        <input type="date" id="docDate" class="form-control" v-model="selectedProduct.docDate">
+                        <input type="date" id="docDate" class="form-control" v-model="selectedNewlinen.DocDate">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="docNumber" class="form-label">เลขที่เอกสาร</label>
-                        <input type="text" id="docNumber" class="form-control" v-model="selectedProduct.docNumber">
+                        <input type="text" id="docNumber" class="form-control" v-model="selectedNewlinen.DocNo">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="recorder" class="form-label">ผู้บันทึก</label>
-                        <input type="text" id="recorder" class="form-control" v-model="selectedProduct.recorder">
+                        <input type="text" id="recorder" class="form-control" v-model="selectedNewlinen.HptCode">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="time" class="form-label">เวลาที่บันทึก</label>
-                        <input type="time" id="time" class="form-control" v-model="selectedProduct.time">
+                        <input type="time" id="time" class="form-control" v-model="selectedNewlinen.HptCode">
                     </div>
                 </div>
 
                 <div class="row align-items-end">
                     <div class="col-md-6 mb-3">
                         <label for="inputWeight" class="form-label">น้ำหนักรวม</label>
-                        <input type="text" id="inputWeight" class="form-control" v-model="selectedProduct.weight">
+                        <input type="text" id="inputWeight" class="form-control" v-model="selectedNewlinen.weight">
                     </div>
 
                     <div class="col-md-6 text-end text-md-start">
                         <div class="d-flex flex-wrap gap-4 justify-content-end mt-3">
                             <div class="text-center">
-                                <button class="btn btn-outline-primary rounded-circle"
+                                <button @click="saveNewLinen" class="btn btn-outline-primary rounded-circle"
                                     style="width: 45px; height: 45px;">
                                     <i class="fas fa-plus"></i>
                                 </button>
+
                                 <div class="small mt-1">เพิ่ม</div>
                             </div>
                             <div class="text-center">
@@ -104,7 +102,7 @@
                 <hr>
 
                 <!-- Table with checkbox -->
-                <div class="table-responsive" v-if="products.length">
+                <div class="table-responsive" v-if="newLinens.length">
                     <table class="table">
                         <thead>
                             <tr>
@@ -118,16 +116,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(product, index) in products" :key="product.id">
+                            <tr v-for="(newLinen, index) in newLinens" :key="newLinen.id">
                                 <td>
-                                    <input type="radio" v-model="selectedProduct" :value="product" />
+                                    <input type="radio" v-model="selectedNewlinen" :value="newLinen" />
                                 </td>
                                 <td>{{ index + 1 }}</td>
-                                <td>{{ product.department }}</td>
-                                <td>{{ product.name }}</td>
-                                <td><input type="text" class="form-control" v-model="product.unit" /></td>
-                                <td><input type="number" class="form-control" v-model.number="product.quantity" /></td>
-                                <td><input type="number" class="form-control" v-model.number="product.weight" /></td>
+                                <td>{{ newLinen.DocNo }}</td>
+                                <td>{{ newLinen.HptCode }}</td>
+                                <td><input type="text" class="form-control" v-model="newLinen.FacCode" /></td>
+                                <td><input type="number" class="form-control" v-model.number="newLinen.SignFac" /></td>
+                                <td><input type="number" class="form-control" v-model.number="newLinen.SignFacTime" />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -160,38 +159,114 @@ import { ref, onMounted } from "vue";
 
 export default {
     setup() {
-        const products = ref([]);
-        const selectedProducts = ref([]);
-        const selectedProduct = ref({
-            hospital: "",
-            laundry: "",
-            docDate: "",
-            docNumber: "",
-            recorder: "",
-            time: "",
-            weight: "",
+        const newLinens = ref([]);
+        const selectedNewlinens = ref([]);
+        const selectedNewlinen = ref({
+            DocNo: "",
+            DocDate: "",
+            HptCode: "",
+            IsStatus: "",
+            FacCode: "",
+            SignFac: "",
+            SignNH: "",
+            SignFacTime: "",
+            SignNHTime: "",
         });
 
-        const fetchProducts = async () => {
+        const fetchNewLinen = async () => {
             try {
-                const response = await fetch("/api/products");
-                products.value = await response.json();
+                const response = await fetch("/api/newlinen");
+                newLinens.value = await response.json();
             } catch (error) {
-                console.error("Error fetching products:", error);
+                console.error("Error fetching linen:", error);
             }
         };
 
-        const selectProduct = (product) => {
-            if (selectedProducts.value.includes(product)) {
-                selectedProduct.value = { ...product };
+        const selectNewlinen = (newLinen) => {
+            if (selectedNewlinens.value.includes(newLinen)) {
+                selectedNewlinen.value = { ...newLinen };
             } else {
-                selectedProduct.value = {}; // Reset if no product is selected
+                selectedNewlinen.value = {}; // Reset if no product is selected
             }
         };
 
-        onMounted(fetchProducts);
+        const saveNewLinen = async () => {
+            try {
+                const response = await fetch("/api/newlinen", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(selectedNewlinen.value),
+                });
 
-        return { products, selectedProduct, selectedProducts, selectProduct };
+                const result = await response.json();
+                console.log("Saved:", result);
+
+                await fetchNewLinen(); // รีโหลดข้อมูลใหม่
+            } catch (error) {
+                console.error("Error saving linen:", error);
+            }
+        };
+
+        const updateNewLinen = async () => {
+            if (!selectedNewlinen.value.id) {
+                console.warn("No ID provided for update.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/newlinen/${selectedNewlinen.value.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(selectedNewlinen.value),
+                });
+
+                const result = await response.json();
+                console.log("Updated:", result);
+
+                await fetchNewLinen();
+            } catch (error) {
+                console.error("Error updating linen:", error);
+            }
+        };
+
+        const deleteNewLinen = async (id) => {
+            if (!id) {
+                console.warn("No ID provided for delete.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/newlinen/${id}`, {
+                    method: "DELETE",
+                });
+
+                if (response.ok) {
+                    console.log("Deleted:", id);
+                    await fetchNewLinen();
+                } else {
+                    const errorData = await response.json();
+                    console.error("Error deleting:", errorData);
+                }
+            } catch (error) {
+                console.error("Error deleting linen:", error);
+            }
+        };
+
+        onMounted(fetchNewLinen);
+
+        return {
+            newLinens,
+            selectedNewlinen,
+            selectedNewlinens,
+            selectNewlinen,
+            saveNewLinen,
+            updateNewLinen,
+            deleteNewLinen
+        };
     },
 };
 </script>
