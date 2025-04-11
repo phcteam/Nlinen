@@ -338,22 +338,20 @@ export default {
       }
     };
 
-    const permissionId = computed(() => {
-      if (userStore.user && userStore.user.permission_id) {
-        return userStore.user.permission_id;
-      }
-      return 1;
-    });
-
+    const permissionId = computed(() => userStore.user?.permission_id || 1);
     const filterGeneralMenus = computed(() => {
-
-      return generalMenus.filter(generalMenu => generalMenu.permission.includes(permissionId));
+      return generalMenus.filter(generalMenu =>
+        generalMenu.permission.includes(permissionId.value)
+      );
     });
 
     const filtercreateStatusMenus = computed(() => {
-
-      return createStatusMenus.filter(createStatusMenu => createStatusMenu.permission.includes(permissionId));
+      return createStatusMenus.filter(createStatusMenu =>
+        createStatusMenu.permission.includes(permissionId.value)
+      );
     });
+
+
 
     // โหลดข้อมูล user ตอนเริ่มต้น
     onMounted(async () => {
