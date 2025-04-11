@@ -338,13 +338,20 @@ export default {
       }
     };
 
+    const permissionId = computed(() => {
+      if (userStore.user && userStore.user.permission_id) {
+        return userStore.user.permission_id;
+      }
+      return 1;
+    });
+
     const filterGeneralMenus = computed(() => {
-      const permissionId = userStore.user.permission_id;
+
       return generalMenus.filter(generalMenu => generalMenu.permission.includes(permissionId));
     });
 
     const filtercreateStatusMenus = computed(() => {
-      const permissionId = userStore.user.permission_id;
+
       return createStatusMenus.filter(createStatusMenu => createStatusMenu.permission.includes(permissionId));
     });
 

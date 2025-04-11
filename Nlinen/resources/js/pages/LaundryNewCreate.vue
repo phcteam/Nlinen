@@ -14,7 +14,6 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <!-- Form Inputs -->
                 <div class="row mt-4">
                     <div class="col-md-6 mb-3">
                         <label for="hospital" class="form-label">โรงพยาบาล</label>
@@ -68,7 +67,7 @@
                                 <div class="small mt-1">เพิ่ม</div>
                             </div>
                             <div class="text-center">
-                                <button class="btn btn-outline-secondary rounded-circle"
+                                <button @click="updateNewLinen" class="btn btn-outline-secondary rounded-circle"
                                     style="width: 45px; height: 45px;">
                                     <i class="fas fa-edit"></i>
                                 </button>
@@ -89,7 +88,7 @@
                                 <div class="small mt-1">โหลดใหม่</div>
                             </div>
                             <div class="text-center">
-                                <button class="btn btn-outline-danger rounded-circle"
+                                <button @click="deleteNewLinen" class="btn btn-outline-danger rounded-circle"
                                     style="width: 45px; height: 45px;">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -150,12 +149,23 @@
 
             </div>
         </div>
+        <div class="mt-4">
+            <h3>เซ็นชื่อ:</h3>
+            <canvas ref="canvasRef" width="400" height="200" style="border:1px solid #ccc;"></canvas>
+            <div class="mt-2">
+                <button @click="saveSignature" class="btn btn-success">บันทึกลายเซ็น</button>
+                <!-- <button @click="() => signaturePad.clear()" class="btn btn-warning mx-2">ล้าง</button> -->
+                <button @click="clearSignature" class="btn btn-warning mx-2">ล้าง</button>
+
+            </div>
+        </div>
     </div>
 
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
+import SignaturePad from 'signature_pad'
 
 export default {
     setup() {
@@ -203,7 +213,7 @@ export default {
                 const result = await response.json();
                 console.log("Saved:", result);
 
-                await fetchNewLinen(); // รีโหลดข้อมูลใหม่
+                await fetchNewLinen(); // reload new data
             } catch (error) {
                 console.error("Error saving linen:", error);
             }
@@ -256,7 +266,55 @@ export default {
             }
         };
 
-        onMounted(fetchNewLinen);
+        // ======================== ลายเซ็น ========================
+        const canvasRef = ref(null)
+        const signaturePad = ref(null)
+
+        const saveSignature = async () => {
+            if (!signaturePad.value || signaturePad.value.isEmpty()) {
+                alert('กรุณาเซ็นก่อน');
+                return;
+            }
+
+            const dataUrl = signaturePad.value.toDataURL('image/png');
+
+            try {
+                const response = await fetch('/api/save-signature', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+                    },
+                    body: JSON.stringify({ image: dataUrl }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('บันทึกลายเซ็นเรียบร้อยแล้ว');
+                    console.log(data);
+                } else {
+                    console.error('เกิดข้อผิดพลาด:', data);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+
+        const clearSignature = () => {
+            if (signaturePad.value) {
+                signaturePad.value.clear();
+            }
+        }
+
+        // onMounted(fetchNewLinen);
+        onMounted(() => {
+            fetchNewLinen();
+            signaturePad.value = new SignaturePad(canvasRef.value);
+
+        });
 
         return {
             newLinens,
@@ -265,8 +323,18 @@ export default {
             selectNewlinen,
             saveNewLinen,
             updateNewLinen,
-            deleteNewLinen
+            deleteNewLinen,
+            canvasRef,
+            clearSignature,
+            saveSignature,
+
         };
     },
 };
 </script>
+
+<style scoped>
+canvas {
+    border: 1px solid #ccc;
+}
+</style>

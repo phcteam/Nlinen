@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\NewLinenController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
